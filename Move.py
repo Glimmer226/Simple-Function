@@ -4,6 +4,7 @@
    V1.0: Move specified postfix files to specified directory
    v1.1: Add log function to track error message
    v1.2: Print log to console and log file.
+   v1.3: You can input specified postfix. Add usage,version.
    '''
 
 
@@ -11,6 +12,7 @@ import os
 import re
 import shutil
 import logging
+import getopt,sys
 
 
 '''Defined logger'''
@@ -34,7 +36,7 @@ class Move:
     def __index__(self):
         pass
 
-    def Findfile(self):
+    def Findfile(self,postfix):
         '''Find the specified postfix files'''
         path = os.getcwd()
         listdir = os.listdir(path)
@@ -46,9 +48,10 @@ class Move:
        # print str,'\n'
         logger.debug(str)
 
-        pattern = re.compile(r'^\w*.py$',re.M)
+        Pattern = r'^\w*.%s$' % postfix #postfix: py,log,txt...
+        pattern = re.compile(Pattern,re.M)
         self.reslut = re.findall(pattern,str)
-        logger.info('self.result:%s'%self.reslut)
+        logger.debug('self.result:%s'%self.reslut)
 
 
     def Movefile(self):
@@ -66,8 +69,37 @@ class Move:
             #print "It's not a path!"
             logger.error("It's not a path!")
 
+def usage():
+    print "usage: %s [-p|--postfix]{py|log|txt|} [-h|--help] [-v|--version]" % sys.argv[0]
 
-a = Move()
-if __name__ == '__main__':
-    a.Findfile()
+def version():
+    print '''    v1.0: Move specified postfix files to specified directory
+    v1.1: Add log function to track error message
+    v1.2: Print log to console and log file.
+    v1.3: You can input specified postfix'''
+
+def parseArgs():
+    try:
+        opts,args = getopt.getopt(sys.argv[1:],'p:hv',["postfix=","help","version"])
+        for o,a in opts:
+            if o in ('-h','--help'):
+                usage()
+                sys.exit()
+            if o in ('-v','--version'):
+                version()
+                sys.exit()
+            if o in ('-p','--postfix'):
+                postfix = a
+    except getopt.GetoptError:
+        usage()
+        sys.exit()
+    return postfix
+
+def main():
+    a=Move()
+    postfix = parseArgs()
+    a.Findfile(postfix)
     a.Movefile()
+
+if __name__ == '__main__':
+    main()
