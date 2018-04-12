@@ -1,0 +1,40 @@
+{
+    "email": "",
+    "notify_email_group": [""],
+    "is_automation_nightly": "yes",
+    "site" : "durham",
+	"vip":"10.110.194.230",
+	"vu":"administrator@vcenter.local",
+	"vp":"Chang3M3Now.",
+	"esxi":"/durham/host/Cluster6/",
+	"ds":"QADUR-VNX02_Lun590",
+	"net":"vlan 192",
+	"kmippackage":"AvPlatformOsRollup_2016-Q3-v3.avp",
+        "kmipversion":"2016-Q3-v3",
+	"kmiptitle":"AvPlatformOsRollup_2016-Q3-v3",
+	"kmipyaml":"/home/ci/template_osrollup_2016Q3.yaml",
+    "tests": [
+    		{
+		        "skip_me": "no",
+			    "hostname": "vmdur-ave89.asl.lab.emc.com",
+			    "build":"18.0.0",
+			    "commponent":"security",
+			    "sip": "10.110.192.89",
+				"smask":"255.255.255.0",
+				"gateway":"10.110.192.1",
+				"dns":"10.254.174.10",
+				"ntp":"10.254.174.10",
+				"domain":"asl.lab.emc.com",
+				"yaml":"/opt/template_install.yaml",
+				"key":" Supp0rtLab8",
+			    "user":"root",
+			    "password":"Chang3M3Now.",
+				"test_scenario":"security_mediation",
+			    "script_location":"/home/ci/testbed_security.py",
+		        "install": {
+		                "install_iso": "yes",
+                                "install_osrollup": "no"
+		            }
+		}	
+    ]
+}
