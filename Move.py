@@ -36,7 +36,7 @@ class log():
     def file(self):
         '''Defined files log'''
         files = logging.FileHandler(filename=self.logname, mode='a')
-        files.setFormatter(logging.DEBUG)
+        files.setLevel(logging.DEBUG)
         files.setFormatter(self.formatter)
         self.logger.addHandler(files)
 
